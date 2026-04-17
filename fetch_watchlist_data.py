@@ -161,47 +161,11 @@ def fetch_earnings(symbol: str) -> tuple[str | None, bool]:
     return None, False
 
 
-def fetch_atm_iv(symbol: str, prev_close: float) -> float | None:
-    """
-    Fetch ATM IV from the first options expiry that is at least 3 days out.
-    Avoids 0-DTE / same-day expiries where IV is near-zero by formula.
-    """
-    try:
-        t = yf.Ticker(symbol)
-        expirations = t.options
-        if not expirations:
-            return None
-
-        today = datetime.date.today()
-        target_exp = None
-        for exp in expirations:
-            if (datetime.date.fromisoformat(exp) - today).days >= 3:
-                target_exp = exp
-                break
-        if not target_exp:
-            return None  # no valid expiry found
-
-        chain = t.option_chain(target_exp)
-        calls = chain.calls
-        if calls.empty:
-            return None
-
-        # Try up to 5 nearest strikes — yfinance sometimes returns 0.0 for ATM
-        calls = calls.copy()
-        calls["_dist"] = (calls["strike"] - prev_close).abs()
-        for _, row in calls.nsmallest(5, "_dist").iterrows():
-            iv = row["impliedVolatility"]
-            if not pd.isna(iv) and float(iv) > 0.01:
-                return round(float(iv) * 100, 1)
-        return None
-    except Exception:
-        return None
 
 
 def main():
     universe_data = load_universe()
     tickers = universe_data["universe"]
-    priority_iv = universe_data.get("priority_for_iv_fetch", tickers[:15])
 
     today = datetime.date.today().strftime("%Y-%m-%d")
     print(f"Fetching watchlist data for {today} — {len(tickers)} tickers")
@@ -234,20 +198,6 @@ def main():
         entry["next_earnings"] = next_earn
         entry["earnings_within_2_days"] = within_2
         time.sleep(0.3)
-
-    # Step 6: ATM IV for priority tickers (first expiry >= 3 days out)
-    print(f"Fetching ATM IV for {len(priority_iv)} priority tickers...")
-    stats_by_symbol = {e["symbol"]: e for e in results}
-    for symbol in priority_iv:
-        if symbol not in stats_by_symbol:
-            continue
-        iv = fetch_atm_iv(symbol, stats_by_symbol[symbol]["prev_close"])
-        stats_by_symbol[symbol]["atm_iv_pct"] = iv
-        time.sleep(0.5)
-
-    for entry in results:
-        if "atm_iv_pct" not in entry:
-            entry["atm_iv_pct"] = None
 
     output = {
         "date": today,

@@ -56,11 +56,12 @@ For each ticker in `watchlist_input.json` that is NOT flagged `earnings_within_2
 - Breakdown: price near 52-week low (`range_position_pct` < 15%) with volume — bearish momentum
 
 **IV assessment:**
-- `atm_iv_pct` vs `hv30_annualized_pct`: if ATM IV > 1.5× HV30, premium is expensive — be cautious buying
-- If ATM IV is near or below HV30, premium is reasonable for directional buying
+- ATM IV is not pre-fetched (options market is closed pre-market, data is unreliable).
+- Use `hv30_annualized_pct` as the volatility baseline. If a ticker has been moving 2-3% daily, expect ATM weekly options to be priced at 30-50% IV.
+- If IV matters for a specific candidate, web-search: "[TICKER] implied volatility today"
 
 **Liquidity check:**
-- Prioritize names in `priority_for_iv_fetch` list — these are confirmed liquid options chains
+- Prioritize well-known names in the universe (SPY, QQQ, NVDA, AAPL, MSFT, etc.) — confirmed liquid chains
 - For other names: only include if you're confident options are liquid (high-profile stocks, ETFs)
 
 Flag the top 3-4 candidates from the base universe with a brief reason.

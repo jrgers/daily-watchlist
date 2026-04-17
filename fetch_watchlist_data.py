@@ -1,7 +1,7 @@
 """
 Fetch daily market data for the options watchlist universe.
 
-Runs via GitHub Actions every weekday at 13:30 UTC (8:30am ET).
+Runs via GitHub Actions every weekday at 12:30 UTC (8:30am ET).
 Outputs watchlist_input.json to the repo root for the Claude agent to read.
 
 Requirements: yfinance, pandas
@@ -9,8 +9,6 @@ Requirements: yfinance, pandas
 
 import json
 import logging
-import os
-import sys
 import time
 import datetime
 import pandas as pd
@@ -25,44 +23,75 @@ OUTPUT_FILE = "watchlist_input.json"
 # ETFs and funds have no earnings dates — skip the calendar call entirely
 NO_EARNINGS_SYMBOLS = {"SPY", "QQQ", "IWM", "GLD", "TLT", "XLF", "XLE", "XLK", "XBI", "GDX"}
 
-# Tickers to also fetch options chain IV for (most liquid names only — others too slow)
-PRIORITY_IV_TICKERS = []
-
 
 def load_universe() -> dict:
     with open(UNIVERSE_FILE, "r") as f:
-        data = json.load(f)
-    return data
+        return json.load(f)
 
 
-def batch_download(tickers: list[str]) -> pd.DataFrame:
-    """Download 1-year OHLCV for all tickers at once."""
-    print(f"Downloading price data for {len(tickers)} tickers...")
-    raw = yf.download(
+def batch_download_daily(tickers: list[str]) -> pd.DataFrame:
+    """Download 1-year daily OHLCV for MAs, ATR, HV, 52-week range."""
+    print(f"Downloading 1-year daily data for {len(tickers)} tickers...")
+    return yf.download(
         tickers,
         period="1y",
         auto_adjust=True,
         progress=False,
         group_by="ticker",
     )
-    return raw
+
+
+def batch_download_premarket(tickers: list[str]) -> pd.DataFrame:
+    """Download today's 1-min bars including pre/post market to capture pre-market prices."""
+    print(f"Downloading pre-market 1-min bars for {len(tickers)} tickers...")
+    return yf.download(
+        tickers,
+        period="1d",
+        interval="1m",
+        auto_adjust=True,
+        prepost=True,
+        progress=False,
+        group_by="ticker",
+    )
+
+
+def get_premarket_price(symbol: str, pm_raw: pd.DataFrame, prev_close: float) -> tuple[float | None, float | None]:
+    """
+    Extract the latest pre-market price from the 1-min intraday download.
+    Pre-market = candles before 13:30 UTC (9:30am ET).
+    Returns (price, change_pct) or (None, None).
+    """
+    try:
+        multi = hasattr(pm_raw.columns, "levels") and len(pm_raw.columns.levels[0]) > 1
+        close_series = pm_raw[symbol]["Close"] if multi else pm_raw["Close"]
+        close_series = close_series.dropna()
+        if close_series.empty:
+            return None, None
+
+        # Filter to pre-market only: before 13:30 UTC
+        pre = close_series[close_series.index.tz_convert("UTC").hour * 60
+                           + close_series.index.tz_convert("UTC").minute < 13 * 60 + 30]
+        if pre.empty:
+            return None, None
+
+        pm_price = float(pre.iloc[-1])
+        if prev_close and prev_close > 0:
+            change_pct = round((pm_price - prev_close) / prev_close * 100, 2)
+        else:
+            change_pct = None
+        return round(pm_price, 2), change_pct
+    except Exception:
+        return None, None
 
 
 def compute_ticker_stats(symbol: str, raw: pd.DataFrame) -> dict | None:
-    """Extract stats for a single ticker from the batch download result."""
+    """Extract stats for a single ticker from the 1-year batch download."""
     try:
-        if len(raw.columns.levels[0]) > 1:
-            # Multi-ticker download: first level is ticker
-            close = raw[symbol]["Close"].dropna()
-            high_s = raw[symbol]["High"].dropna()
-            low_s = raw[symbol]["Low"].dropna()
-            vol_s = raw[symbol]["Volume"].dropna()
-        else:
-            # Single-ticker fallback
-            close = raw["Close"].dropna()
-            high_s = raw["High"].dropna()
-            low_s = raw["Low"].dropna()
-            vol_s = raw["Volume"].dropna()
+        multi = hasattr(raw.columns, "levels") and len(raw.columns.levels[0]) > 1
+        close = (raw[symbol]["Close"] if multi else raw["Close"]).dropna()
+        high_s = (raw[symbol]["High"] if multi else raw["High"]).dropna()
+        low_s = (raw[symbol]["Low"] if multi else raw["Low"]).dropna()
+        vol_s = (raw[symbol]["Volume"] if multi else raw["Volume"]).dropna()
 
         if len(close) < 50:
             print(f"  {symbol}: insufficient history, skipping")
@@ -76,25 +105,23 @@ def compute_ticker_stats(symbol: str, raw: pd.DataFrame) -> dict | None:
 
         range_position = (
             (prev_close - low_52w) / (high_52w - low_52w) * 100
-            if high_52w != low_52w
-            else 50.0
+            if high_52w != low_52w else 50.0
         )
 
         # ATR-14
         hl = high_s - low_s
         hc = (high_s - close.shift(1)).abs()
         lc = (low_s - close.shift(1)).abs()
-        tr = pd.concat([hl, hc, lc], axis=1).max(axis=1)
-        atr14 = float(tr.rolling(14).mean().iloc[-1])
+        atr14 = float(pd.concat([hl, hc, lc], axis=1).max(axis=1).rolling(14).mean().iloc[-1])
 
-        # Volume ratio (last day vs 20-day avg)
+        # Volume ratio
         avg_vol = float(vol_s.rolling(20).mean().iloc[-1])
         last_vol = float(vol_s.iloc[-1])
         volume_ratio = round(last_vol / avg_vol, 2) if avg_vol > 0 else 1.0
 
         # 30-day historical volatility (annualized)
-        returns = close.pct_change().dropna()
-        hv30 = float(returns.rolling(30).std().iloc[-1] * (252 ** 0.5) * 100)
+        hv30_raw = close.pct_change().dropna().rolling(30).std().iloc[-1] * (252 ** 0.5) * 100
+        hv30 = round(float(hv30_raw), 1) if not pd.isna(hv30_raw) else None
 
         return {
             "symbol": symbol,
@@ -108,7 +135,7 @@ def compute_ticker_stats(symbol: str, raw: pd.DataFrame) -> dict | None:
             "range_position_pct": round(range_position, 1),
             "atr14": round(atr14, 2),
             "volume_ratio_vs_20d_avg": volume_ratio,
-            "hv30_annualized_pct": round(hv30, 1) if not pd.isna(hv30) else None,
+            "hv30_annualized_pct": hv30,
         }
 
     except Exception as e:
@@ -116,58 +143,49 @@ def compute_ticker_stats(symbol: str, raw: pd.DataFrame) -> dict | None:
         return None
 
 
-def fetch_premarket_and_earnings(symbol: str) -> dict:
-    """Fetch pre-market price and next earnings date for a single ticker."""
-    result = {
-        "pre_market_price": None,
-        "pre_market_change_pct": None,
-        "next_earnings": None,
-        "earnings_within_2_days": False,
-    }
+def fetch_earnings(symbol: str) -> tuple[str | None, bool]:
+    """Return (next_earnings_date_str, earnings_within_2_days)."""
+    if symbol in NO_EARNINGS_SYMBOLS:
+        return None, False
     try:
         t = yf.Ticker(symbol)
-
-        # Pre-market price
-        info = t.fast_info
-        pm = getattr(info, "pre_market_price", None)
-        prev = getattr(info, "previous_close", None)
-        if pm and prev and prev > 0:
-            result["pre_market_price"] = round(float(pm), 2)
-            result["pre_market_change_pct"] = round((pm - prev) / prev * 100, 2)
-
-        # Earnings date (skip for ETFs — they have no earnings)
-        if symbol not in NO_EARNINGS_SYMBOLS:
-            try:
-                cal = t.get_calendar()
-                if cal and "Earnings Date" in cal:
-                    earn_dates = cal["Earnings Date"]
-                    if hasattr(earn_dates, "__iter__"):
-                        earn_dates = list(earn_dates)
-                        if earn_dates:
-                            next_earn = pd.Timestamp(earn_dates[0]).date()
-                            result["next_earnings"] = str(next_earn)
-                            days = (next_earn - datetime.date.today()).days
-                            result["earnings_within_2_days"] = 0 <= days <= 2
-            except Exception:
-                pass
-
-    except Exception as e:
-        print(f"  {symbol}: premarket/earnings error — {e}")
-
-    return result
+        cal = t.get_calendar()
+        if cal and "Earnings Date" in cal:
+            earn_dates = list(cal["Earnings Date"])
+            if earn_dates:
+                next_earn = pd.Timestamp(earn_dates[0]).date()
+                days = (next_earn - datetime.date.today()).days
+                return str(next_earn), (0 <= days <= 2)
+    except Exception:
+        pass
+    return None, False
 
 
 def fetch_atm_iv(symbol: str, prev_close: float) -> float | None:
-    """Fetch ATM implied volatility from the nearest weekly options expiry."""
+    """
+    Fetch ATM IV from the first options expiry that is at least 3 days out.
+    Avoids 0-DTE / same-day expiries where IV is near-zero by formula.
+    """
     try:
         t = yf.Ticker(symbol)
         expirations = t.options
         if not expirations:
             return None
-        chain = t.option_chain(expirations[0])
+
+        today = datetime.date.today()
+        target_exp = None
+        for exp in expirations:
+            if (datetime.date.fromisoformat(exp) - today).days >= 3:
+                target_exp = exp
+                break
+        if not target_exp:
+            return None  # no valid expiry found
+
+        chain = t.option_chain(target_exp)
         calls = chain.calls
         if calls.empty:
             return None
+
         idx = (calls["strike"] - prev_close).abs().idxmin()
         iv = calls.loc[idx, "impliedVolatility"]
         return round(float(iv) * 100, 1) if not pd.isna(iv) else None
@@ -183,36 +201,45 @@ def main():
     today = datetime.date.today().strftime("%Y-%m-%d")
     print(f"Fetching watchlist data for {today} — {len(tickers)} tickers")
 
-    # Step 1: Batch price download
-    raw = batch_download(tickers)
+    # Step 1: 1-year daily data (MAs, ATR, HV, range)
+    raw_daily = batch_download_daily(tickers)
 
-    # Step 2: Compute per-ticker stats
+    # Step 2: Today's 1-min pre-market data
+    raw_pm = batch_download_premarket(tickers)
+
+    # Step 3: Compute per-ticker stats from daily data
     results = []
     for symbol in tickers:
-        stats = compute_ticker_stats(symbol, raw)
+        stats = compute_ticker_stats(symbol, raw_daily)
         if stats is None:
             continue
         results.append(stats)
 
-    # Step 3: Pre-market prices + earnings (individual calls, throttled)
-    print("Fetching pre-market prices and earnings dates...")
+    # Step 4: Add pre-market prices from intraday batch
+    print("Extracting pre-market prices...")
     for entry in results:
-        pm_data = fetch_premarket_and_earnings(entry["symbol"])
-        entry.update(pm_data)
-        time.sleep(0.3)  # gentle rate limiting
+        pm_price, pm_chg = get_premarket_price(entry["symbol"], raw_pm, entry["prev_close"])
+        entry["pre_market_price"] = pm_price
+        entry["pre_market_change_pct"] = pm_chg
 
-    # Step 4: ATM IV for priority tickers only
+    # Step 5: Earnings dates (individual calls, throttled)
+    print("Fetching earnings dates...")
+    for entry in results:
+        next_earn, within_2 = fetch_earnings(entry["symbol"])
+        entry["next_earnings"] = next_earn
+        entry["earnings_within_2_days"] = within_2
+        time.sleep(0.3)
+
+    # Step 6: ATM IV for priority tickers (first expiry >= 3 days out)
     print(f"Fetching ATM IV for {len(priority_iv)} priority tickers...")
     stats_by_symbol = {e["symbol"]: e for e in results}
     for symbol in priority_iv:
         if symbol not in stats_by_symbol:
             continue
-        prev_close = stats_by_symbol[symbol]["prev_close"]
-        iv = fetch_atm_iv(symbol, prev_close)
+        iv = fetch_atm_iv(symbol, stats_by_symbol[symbol]["prev_close"])
         stats_by_symbol[symbol]["atm_iv_pct"] = iv
         time.sleep(0.5)
 
-    # Fill atm_iv_pct as None for non-priority tickers
     for entry in results:
         if "atm_iv_pct" not in entry:
             entry["atm_iv_pct"] = None

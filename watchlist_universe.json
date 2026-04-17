@@ -1,0 +1,16 @@
+{
+  "description": "Base universe for daily options watchlist screening. Edit freely — add/remove tickers.",
+  "priority_for_iv_fetch": [
+    "SPY", "QQQ", "IWM",
+    "NVDA", "AAPL", "MSFT", "AMZN", "GOOGL", "META", "TSLA", "AMD",
+    "GS", "JPM", "NFLX", "AVGO"
+  ],
+  "universe": [
+    "SPY", "QQQ", "IWM", "GLD", "TLT",
+    "NVDA", "AAPL", "MSFT", "AMZN", "GOOGL", "META", "TSLA", "AMD", "AVGO",
+    "GS", "JPM", "BAC", "MS",
+    "ASML", "COIN", "PLTR", "NFLX", "CRM", "UBER", "XOM", "CVX",
+    "SMCI", "ARM", "MU", "ORCL",
+    "MSTR", "HOOD", "SOFI", "RIOT"
+  ]
+}

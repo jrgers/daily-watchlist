@@ -186,9 +186,14 @@ def fetch_atm_iv(symbol: str, prev_close: float) -> float | None:
         if calls.empty:
             return None
 
-        idx = (calls["strike"] - prev_close).abs().idxmin()
-        iv = calls.loc[idx, "impliedVolatility"]
-        return round(float(iv) * 100, 1) if not pd.isna(iv) else None
+        # Try up to 5 nearest strikes — yfinance sometimes returns 0.0 for ATM
+        calls = calls.copy()
+        calls["_dist"] = (calls["strike"] - prev_close).abs()
+        for _, row in calls.nsmallest(5, "_dist").iterrows():
+            iv = row["impliedVolatility"]
+            if not pd.isna(iv) and float(iv) > 0.01:
+                return round(float(iv) * 100, 1)
+        return None
     except Exception:
         return None
 

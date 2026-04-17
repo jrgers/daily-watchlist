@@ -1,6 +1,6 @@
 {
   "date": "2026-04-17",
-  "generated_at_utc": "2026-04-17T09:58:03Z",
+  "generated_at_utc": "2026-04-17T10:01:42Z",
   "ticker_count": 34,
   "tickers": [
     {
@@ -16,11 +16,11 @@
       "atr14": 9.57,
       "volume_ratio_vs_20d_avg": 0.57,
       "hv30_annualized_pct": 18.0,
-      "pre_market_price": 703.45,
-      "pre_market_change_pct": 0.25,
+      "pre_market_price": 703.3,
+      "pre_market_change_pct": 0.23,
       "next_earnings": null,
       "earnings_within_2_days": false,
-      "atm_iv_pct": 0.0
+      "atm_iv_pct": 1.6
     },
     {
       "symbol": "QQQ",
@@ -35,11 +35,11 @@
       "atr14": 11.82,
       "volume_ratio_vs_20d_avg": 0.69,
       "hv30_annualized_pct": 21.9,
-      "pre_market_price": 641.85,
-      "pre_market_change_pct": 0.22,
+      "pre_market_price": 641.75,
+      "pre_market_change_pct": 0.2,
       "next_earnings": null,
       "earnings_within_2_days": false,
-      "atm_iv_pct": 0.0
+      "atm_iv_pct": 1.6
     },
     {
       "symbol": "IWM",
@@ -58,7 +58,7 @@
       "pre_market_change_pct": 0.51,
       "next_earnings": null,
       "earnings_within_2_days": false,
-      "atm_iv_pct": 0.1
+      "atm_iv_pct": 1.6
     },
     {
       "symbol": "GLD",
@@ -73,8 +73,8 @@
       "atr14": 9.17,
       "volume_ratio_vs_20d_avg": 0.39,
       "hv30_annualized_pct": 31.8,
-      "pre_market_price": 440.05,
-      "pre_market_change_pct": -0.01,
+      "pre_market_price": 440.08,
+      "pre_market_change_pct": -0.0,
       "next_earnings": null,
       "earnings_within_2_days": false,
       "atm_iv_pct": null
@@ -92,8 +92,8 @@
       "atr14": 0.66,
       "volume_ratio_vs_20d_avg": 0.59,
       "hv30_annualized_pct": 11.3,
-      "pre_market_price": 86.46,
-      "pre_market_change_pct": 0.21,
+      "pre_market_price": 86.45,
+      "pre_market_change_pct": 0.2,
       "next_earnings": null,
       "earnings_within_2_days": false,
       "atm_iv_pct": null
@@ -111,11 +111,11 @@
       "atr14": 5.08,
       "volume_ratio_vs_20d_avg": 0.81,
       "hv30_annualized_pct": 33.5,
-      "pre_market_price": 198.72,
-      "pre_market_change_pct": 0.19,
+      "pre_market_price": 198.66,
+      "pre_market_change_pct": 0.16,
       "next_earnings": "2026-05-20",
       "earnings_within_2_days": false,
-      "atm_iv_pct": 0.0
+      "atm_iv_pct": 1.6
     },
     {
       "symbol": "AAPL",
@@ -130,11 +130,11 @@
       "atr14": 6.22,
       "volume_ratio_vs_20d_avg": 1.01,
       "hv30_annualized_pct": 21.1,
-      "pre_market_price": 265.8,
-      "pre_market_change_pct": 0.91,
+      "pre_market_price": 265.4,
+      "pre_market_change_pct": 0.76,
       "next_earnings": "2026-04-30",
       "earnings_within_2_days": false,
-      "atm_iv_pct": 0.0
+      "atm_iv_pct": 1.6
     },
     {
       "symbol": "MSFT",
@@ -149,11 +149,11 @@
       "atr14": 9.97,
       "volume_ratio_vs_20d_avg": 1.21,
       "hv30_annualized_pct": 27.4,
-      "pre_market_price": 424.77,
-      "pre_market_change_pct": 1.07,
+      "pre_market_price": 424.68,
+      "pre_market_change_pct": 1.05,
       "next_earnings": "2026-04-29",
       "earnings_within_2_days": false,
-      "atm_iv_pct": 0.0
+      "atm_iv_pct": 3.1
     },
     {
       "symbol": "AMZN",
@@ -168,11 +168,11 @@
       "atr14": 7.17,
       "volume_ratio_vs_20d_avg": 0.9,
       "hv30_annualized_pct": 33.8,
-      "pre_market_price": 250.75,
-      "pre_market_change_pct": 0.42,
+      "pre_market_price": 250.72,
+      "pre_market_change_pct": 0.41,
       "next_earnings": "2026-04-29",
       "earnings_within_2_days": false,
-      "atm_iv_pct": 0.4
+      "atm_iv_pct": 6.3
     },
     {
       "symbol": "GOOGL",
@@ -187,11 +187,11 @@
       "atr14": 8.73,
       "volume_ratio_vs_20d_avg": 0.7,
       "hv30_annualized_pct": 33.0,
-      "pre_market_price": 336.87,
-      "pre_market_change_pct": 0.25,
+      "pre_market_price": 336.91,
+      "pre_market_change_pct": 0.26,
       "next_earnings": "2026-04-29",
       "earnings_within_2_days": false,
-      "atm_iv_pct": 0.0
+      "atm_iv_pct": 3.1
     },
     {
       "symbol": "META",
@@ -206,11 +206,11 @@
       "atr14": 21.57,
       "volume_ratio_vs_20d_avg": 0.52,
       "hv30_annualized_pct": 46.7,
-      "pre_market_price": 679.1,
-      "pre_market_change_pct": 0.33,
+      "pre_market_price": 678.52,
+      "pre_market_change_pct": 0.24,
       "next_earnings": "2026-04-29",
       "earnings_within_2_days": false,
-      "atm_iv_pct": 0.2
+      "atm_iv_pct": 1.6
     },
     {
       "symbol": "TSLA",
@@ -225,11 +225,11 @@
       "atr14": 16.26,
       "volume_ratio_vs_20d_avg": 0.92,
       "hv30_annualized_pct": 43.8,
-      "pre_market_price": 389.86,
-      "pre_market_change_pct": 0.25,
+      "pre_market_price": 389.53,
+      "pre_market_change_pct": 0.16,
       "next_earnings": "2026-04-22",
       "earnings_within_2_days": false,
-      "atm_iv_pct": 0.8
+      "atm_iv_pct": 3.1
     },
     {
       "symbol": "AMD",
@@ -244,8 +244,8 @@
       "atr14": 10.49,
       "volume_ratio_vs_20d_avg": 1.82,
       "hv30_annualized_pct": 52.0,
-      "pre_market_price": 277.58,
-      "pre_market_change_pct": -0.24,
+      "pre_market_price": 277.29,
+      "pre_market_change_pct": -0.35,
       "next_earnings": "2026-05-05",
       "earnings_within_2_days": false,
       "atm_iv_pct": 1.6
@@ -263,11 +263,11 @@
       "atr14": 12.73,
       "volume_ratio_vs_20d_avg": 0.76,
       "hv30_annualized_pct": 46.0,
-      "pre_market_price": 398.7,
-      "pre_market_change_pct": 0.06,
+      "pre_market_price": 399.1,
+      "pre_market_change_pct": 0.16,
       "next_earnings": "2026-06-03",
       "earnings_within_2_days": false,
-      "atm_iv_pct": 0.0
+      "atm_iv_pct": null
     },
     {
       "symbol": "GS",
@@ -286,7 +286,7 @@
       "pre_market_change_pct": 0.24,
       "next_earnings": "2026-07-14",
       "earnings_within_2_days": false,
-      "atm_iv_pct": 0.0
+      "atm_iv_pct": null
     },
     {
       "symbol": "JPM",
@@ -301,11 +301,11 @@
       "atr14": 7.07,
       "volume_ratio_vs_20d_avg": 0.8,
       "hv30_annualized_pct": 22.5,
-      "pre_market_price": 310.87,
-      "pre_market_change_pct": 0.3,
+      "pre_market_price": 310.79,
+      "pre_market_change_pct": 0.27,
       "next_earnings": "2026-07-14",
       "earnings_within_2_days": false,
-      "atm_iv_pct": 0.0
+      "atm_iv_pct": 1.6
     },
     {
       "symbol": "BAC",
@@ -320,8 +320,8 @@
       "atr14": 1.26,
       "volume_ratio_vs_20d_avg": 0.92,
       "hv30_annualized_pct": 23.6,
-      "pre_market_price": 53.66,
-      "pre_market_change_pct": 0.28,
+      "pre_market_price": 53.63,
+      "pre_market_change_pct": 0.22,
       "next_earnings": "2026-07-14",
       "earnings_within_2_days": false,
       "atm_iv_pct": null
@@ -358,8 +358,8 @@
       "atr14": 60.9,
       "volume_ratio_vs_20d_avg": 1.34,
       "hv30_annualized_pct": 52.8,
-      "pre_market_price": 1445.92,
-      "pre_market_change_pct": 2.49,
+      "pre_market_price": 1444.39,
+      "pre_market_change_pct": 2.38,
       "next_earnings": "2026-07-15",
       "earnings_within_2_days": false,
       "atm_iv_pct": null
@@ -377,8 +377,8 @@
       "atr14": 10.88,
       "volume_ratio_vs_20d_avg": 1.04,
       "hv30_annualized_pct": 61.2,
-      "pre_market_price": 202.04,
-      "pre_market_change_pct": 1.11,
+      "pre_market_price": 201.78,
+      "pre_market_change_pct": 0.98,
       "next_earnings": "2026-05-07",
       "earnings_within_2_days": false,
       "atm_iv_pct": null
@@ -396,8 +396,8 @@
       "atr14": 7.94,
       "volume_ratio_vs_20d_avg": 0.87,
       "hv30_annualized_pct": 53.6,
-      "pre_market_price": 144.4,
-      "pre_market_change_pct": 1.15,
+      "pre_market_price": 144.5,
+      "pre_market_change_pct": 1.22,
       "next_earnings": "2026-05-04",
       "earnings_within_2_days": false,
       "atm_iv_pct": null
@@ -415,11 +415,11 @@
       "atr14": 2.81,
       "volume_ratio_vs_20d_avg": 1.63,
       "hv30_annualized_pct": 25.1,
-      "pre_market_price": 97.11,
-      "pre_market_change_pct": -9.91,
-      "next_earnings": "2026-04-16",
+      "pre_market_price": 97.16,
+      "pre_market_change_pct": -9.86,
+      "next_earnings": "2026-07-16",
       "earnings_within_2_days": false,
-      "atm_iv_pct": 0.4
+      "atm_iv_pct": 1.6
     },
     {
       "symbol": "CRM",
@@ -434,8 +434,8 @@
       "atr14": 7.09,
       "volume_ratio_vs_20d_avg": 0.87,
       "hv30_annualized_pct": 41.3,
-      "pre_market_price": 184.75,
-      "pre_market_change_pct": 1.95,
+      "pre_market_price": 184.2,
+      "pre_market_change_pct": 1.64,
       "next_earnings": "2026-05-27",
       "earnings_within_2_days": false,
       "atm_iv_pct": null
@@ -453,8 +453,8 @@
       "atr14": 2.36,
       "volume_ratio_vs_20d_avg": 0.89,
       "hv30_annualized_pct": 36.4,
-      "pre_market_price": 77.47,
-      "pre_market_change_pct": 1.29,
+      "pre_market_price": 77.44,
+      "pre_market_change_pct": 1.26,
       "next_earnings": "2026-05-06",
       "earnings_within_2_days": false,
       "atm_iv_pct": null
@@ -491,8 +491,8 @@
       "atr14": 6.69,
       "volume_ratio_vs_20d_avg": 0.57,
       "hv30_annualized_pct": 28.8,
-      "pre_market_price": 188.2,
-      "pre_market_change_pct": 0.03,
+      "pre_market_price": 188.79,
+      "pre_market_change_pct": 0.34,
       "next_earnings": "2026-05-01",
       "earnings_within_2_days": false,
       "atm_iv_pct": null
@@ -510,8 +510,8 @@
       "atr14": 1.44,
       "volume_ratio_vs_20d_avg": 0.57,
       "hv30_annualized_pct": 117.4,
-      "pre_market_price": 28.8,
-      "pre_market_change_pct": 1.41,
+      "pre_market_price": 28.81,
+      "pre_market_change_pct": 1.44,
       "next_earnings": "2026-05-05",
       "earnings_within_2_days": false,
       "atm_iv_pct": null
@@ -529,8 +529,8 @@
       "atr14": 9.22,
       "volume_ratio_vs_20d_avg": 0.65,
       "hv30_annualized_pct": 74.8,
-      "pre_market_price": 165.65,
-      "pre_market_change_pct": 2.05,
+      "pre_market_price": 164.8,
+      "pre_market_change_pct": 1.52,
       "next_earnings": "2026-05-06",
       "earnings_within_2_days": false,
       "atm_iv_pct": null
@@ -548,8 +548,8 @@
       "atr14": 26.32,
       "volume_ratio_vs_20d_avg": 0.64,
       "hv30_annualized_pct": 75.6,
-      "pre_market_price": 456.84,
-      "pre_market_change_pct": -0.09,
+      "pre_market_price": 456.55,
+      "pre_market_change_pct": -0.15,
       "next_earnings": "2026-06-24",
       "earnings_within_2_days": false,
       "atm_iv_pct": null
@@ -567,8 +567,8 @@
       "atr14": 7.97,
       "volume_ratio_vs_20d_avg": 1.7,
       "hv30_annualized_pct": 61.5,
-      "pre_market_price": 181.64,
-      "pre_market_change_pct": 1.85,
+      "pre_market_price": 181.49,
+      "pre_market_change_pct": 1.76,
       "next_earnings": "2026-06-10",
       "earnings_within_2_days": false,
       "atm_iv_pct": null
@@ -586,8 +586,8 @@
       "atr14": 7.96,
       "volume_ratio_vs_20d_avg": 0.99,
       "hv30_annualized_pct": 55.4,
-      "pre_market_price": 151.54,
-      "pre_market_change_pct": 1.75,
+      "pre_market_price": 150.92,
+      "pre_market_change_pct": 1.33,
       "next_earnings": "2026-05-05",
       "earnings_within_2_days": false,
       "atm_iv_pct": null
@@ -605,8 +605,8 @@
       "atr14": 4.67,
       "volume_ratio_vs_20d_avg": 1.66,
       "hv30_annualized_pct": 65.4,
-      "pre_market_price": 87.46,
-      "pre_market_change_pct": 0.7,
+      "pre_market_price": 87.41,
+      "pre_market_change_pct": 0.64,
       "next_earnings": "2026-04-28",
       "earnings_within_2_days": false,
       "atm_iv_pct": null
@@ -624,8 +624,8 @@
       "atr14": 0.84,
       "volume_ratio_vs_20d_avg": 1.27,
       "hv30_annualized_pct": 42.8,
-      "pre_market_price": 19.36,
-      "pre_market_change_pct": 1.73,
+      "pre_market_price": 19.35,
+      "pre_market_change_pct": 1.68,
       "next_earnings": "2026-04-29",
       "earnings_within_2_days": false,
       "atm_iv_pct": null

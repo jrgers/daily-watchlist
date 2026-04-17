@@ -88,7 +88,10 @@ def send_discord(watchlist: dict) -> None:
         webhook_url,
         data=data,
         method="POST",
-        headers={"Content-Type": "application/json"},
+        headers={
+            "Content-Type": "application/json",
+            "User-Agent": "DiscordBot (daily-watchlist, 1.0)",
+        },
     )
     try:
         with urllib.request.urlopen(req, timeout=30) as resp:

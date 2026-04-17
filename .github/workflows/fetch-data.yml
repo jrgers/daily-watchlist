@@ -2,7 +2,7 @@ name: Daily Watchlist — Fetch Market Data
 
 on:
   schedule:
-    - cron: '30 13 * * 1-5'  # M-F 13:30 UTC (8:30am ET) — 1hr before market open
+    - cron: '30 12 * * 1-5'  # M-F 12:30 UTC (8:30am ET) — 1hr before market open
   workflow_dispatch:          # Manual trigger for testing
 
 permissions:

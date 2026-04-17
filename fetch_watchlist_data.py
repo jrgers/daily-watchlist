@@ -8,6 +8,7 @@ Requirements: yfinance, pandas
 """
 
 import json
+import logging
 import os
 import sys
 import time
@@ -15,8 +16,14 @@ import datetime
 import pandas as pd
 import yfinance as yf
 
+# Suppress yfinance internal error noise (404s on ETFs with no fundamentals data are expected)
+logging.getLogger("yfinance").setLevel(logging.CRITICAL)
+
 UNIVERSE_FILE = "watchlist_universe.json"
 OUTPUT_FILE = "watchlist_input.json"
+
+# ETFs and funds have no earnings dates — skip the calendar call entirely
+NO_EARNINGS_SYMBOLS = {"SPY", "QQQ", "IWM", "GLD", "TLT", "XLF", "XLE", "XLK", "XBI", "GDX"}
 
 # Tickers to also fetch options chain IV for (most liquid names only — others too slow)
 PRIORITY_IV_TICKERS = []
@@ -128,20 +135,21 @@ def fetch_premarket_and_earnings(symbol: str) -> dict:
             result["pre_market_price"] = round(float(pm), 2)
             result["pre_market_change_pct"] = round((pm - prev) / prev * 100, 2)
 
-        # Earnings date
-        try:
-            cal = t.get_calendar()
-            if cal and "Earnings Date" in cal:
-                earn_dates = cal["Earnings Date"]
-                if hasattr(earn_dates, "__iter__"):
-                    earn_dates = list(earn_dates)
-                    if earn_dates:
-                        next_earn = pd.Timestamp(earn_dates[0]).date()
-                        result["next_earnings"] = str(next_earn)
-                        days = (next_earn - datetime.date.today()).days
-                        result["earnings_within_2_days"] = 0 <= days <= 2
-        except Exception:
-            pass
+        # Earnings date (skip for ETFs — they have no earnings)
+        if symbol not in NO_EARNINGS_SYMBOLS:
+            try:
+                cal = t.get_calendar()
+                if cal and "Earnings Date" in cal:
+                    earn_dates = cal["Earnings Date"]
+                    if hasattr(earn_dates, "__iter__"):
+                        earn_dates = list(earn_dates)
+                        if earn_dates:
+                            next_earn = pd.Timestamp(earn_dates[0]).date()
+                            result["next_earnings"] = str(next_earn)
+                            days = (next_earn - datetime.date.today()).days
+                            result["earnings_within_2_days"] = 0 <= days <= 2
+            except Exception:
+                pass
 
     except Exception as e:
         print(f"  {symbol}: premarket/earnings error — {e}")

@@ -1,90 +1,66 @@
 {
-  "date": "2026-04-17",
+  "date": "2026-04-20",
   "generated_at_et": "08:40 ET",
-  "market_context": "SPY is +5.67% above its 20MA and +4.20% above its 50MA, sitting at 99.4% of its 52-week range (effectively at all-time highs) with a mild pre-market bid of +0.26%. QQQ is even stronger: +7.62% above its 20MA at 99.2% of range. IWM confirming breadth with small caps also at 52-week highs. Both index ETFs are in clean uptrends — bias is risk-on and bullish for today. The single outlier is NFLX, gapping -10.1% on a stock-specific catalyst; that trade runs counter to the broad market posture and is evaluated on its own merits.",
+  "market_context": "SPY and QQQ closed Friday at 52-week highs (+6.3% and +8.2% above 20MA respectively). Monday pre-market is materially different from the stale Friday input data: a U.S.-Iran military confrontation (U.S. Navy seized Iranian cargo ship; Iran vowing retaliation) is driving Nasdaq futures down ~1% and crude oil prices sharply higher on Strait of Hormuz supply-disruption fears. Energy sector outperforming; tech/growth facing headwinds. Bias is sector-split: energy bullish on oil surge, broad tech bearish on geopolitical risk-off.",
   "trades": [
     {
       "rank": 1,
-      "symbol": "NFLX",
-      "direction": "BEARISH",
-      "trade_category": "Swing Trade",
+      "symbol": "XOM",
+      "direction": "BULLISH",
+      "trade_category": "Day Trade",
       "type": "Catalyst Play",
-      "context": "Netflix reported Q1 2026 after the close on April 16. EPS beat hard ($1.23 vs. $0.66 expected), but forward guidance disappointed: full-year operating margin guided at 31.5% vs. the 32.0% analyst consensus, and annual revenue kept at $50.7–51.7B vs. $51.38B expected — a 'beat-and-lower' pattern. Co-founder Reed Hastings simultaneously announced his departure from the board after 29 years, adding leadership uncertainty. Stock is gapping -10.1% in pre-market to ~$96.90, breaking decisively below the 20MA at $97.87. That MA now flips to resistance. Next technical target is the 50MA at $91.61.",
+      "context": "U.S.-Iran military confrontation over the weekend (U.S. Navy seized Iranian cargo ship; Iran vowing retaliation) drove crude oil sharply higher on Strait of Hormuz supply-disruption fears. XOM is up ~1.75% pre-market at approximately $146.26. Despite being in a technical downtrend (below its 20MA and 50MA), this is a pure catalyst-driven day trade on energy momentum — geopolitical oil shocks can produce rapid 3-5% intraday moves in integrated majors.",
       "if_conditions": [
-        "NFLX opens at or below $97.87 (the 20MA) — gap must hold below this level at the open print",
-        "If NFLX bounces early, the bounce is rejected at or below $97.87 (20MA confirmed as resistance, not support)",
-        "SPY is not rallying more than +1.0% at 9:35am ET — a sharp market surge could drag NFLX into a gap-fill",
-        "No analyst upgrade or company statement reversing the guidance narrative appears before entry"
+        "XOM holds above $145.00 at market open (pre-market support level; break below signals oil pop is fading)",
+        "No ceasefire or de-escalation announcement from Iran within the first 15 minutes of trading",
+        "SPY is not declining more than -1.5% at 9:35am ET (broad market crash would overwhelm the energy bid)"
       ],
       "trade": {
-        "structure": "Buy put",
-        "strike": "$97",
-        "expiry": "Apr 24 (Fri)",
-        "dte": 7,
-        "entry_range": "$3.00 – $5.00",
+        "structure": "Buy call",
+        "strike": "$146",
+        "expiry": "Apr 22 (Wed)",
+        "dte": 2,
+        "entry_range": "$1.80 – $2.50",
         "target": "+65% on premium",
-        "stop": "-35% on premium OR NFLX trades and holds above $99.00 intraday"
+        "stop": "-35% on premium OR XOM price drops below $144.50"
       },
-      "invalidation": "If NFLX opens above $98.50 and holds that level for 15 minutes, a gap-fill is underway and the bearish thesis is off the table — skip entirely.",
+      "invalidation": "If XOM opens below $144.50 or immediately reverses lower at the open, skip entirely — the oil pop is fading and the catalyst is not holding.",
       "confidence": "High"
     },
     {
       "rank": 2,
-      "symbol": "ASML",
-      "direction": "BULLISH",
-      "trade_category": "Swing Trade",
-      "type": "Catalyst Play",
-      "context": "ASML reported Q1 2026 on April 15, beating on both revenue (€8.8B vs. €8.5B expected) and net profit (€2.8B vs. €2.5B expected) while raising its 2026 full-year guidance band to €36–40B from €34–39B. Despite the strong numbers, the stock sold off ~6% that day as investors fixated on tightening China export restrictions weighing on China revenue. Today ASML is recovering +2.42% to $1,444.98 in pre-market — suggesting the initial reaction was an overreaction to a headline risk that was already well-known. The stock remains solidly above both its 20MA ($1,379.99) and 50MA ($1,396.37), and the raised guidance is a real fundamental tailwind.",
+      "symbol": "QQQ",
+      "direction": "BEARISH",
+      "trade_category": "Day Trade",
+      "type": "Macro/Catalyst Play",
+      "context": "QQQ closed Friday at a 52-week high ($646.89, range_position_pct=100%), leaving it maximally exposed to a pullback. Monday pre-market Nasdaq futures are explicitly lower on Iran-driven geopolitical shock. Buying puts at an all-time high with a confirmed negative catalyst and cheap implied volatility (HV30=22%) is a high-quality asymmetric setup — maximum technical vulnerability plus a specific negative event.",
       "if_conditions": [
-        "ASML holds above $1,410.83 (prior session close) at the open — the recovery must not reverse at the bell",
-        "Pre-market price of $1,435 or higher holds into 9:30am ET (no late pre-market fade)",
-        "No new China export control headline or policy announcement drops before or just after the open",
-        "SPY is not declining more than -0.8% at 9:35am ET"
+        "QQQ opens below $643.00 (below Friday's close of $646.89, confirming the Iran-driven gap-down is holding at open)",
+        "SPY is declining at least -0.5% from its own open at 9:35am ET (confirming broad risk-off, not isolated sector rotation)",
+        "No sudden Iran de-escalation or ceasefire headline within the first 15 minutes of trading"
       ],
       "trade": {
-        "structure": "Buy call",
-        "strike": "$1,445",
-        "expiry": "Apr 24 (Fri)",
-        "dte": 7,
-        "entry_range": "$45.00 – $65.00",
+        "structure": "Buy put",
+        "strike": "$640",
+        "expiry": "Apr 22 (Wed)",
+        "dte": 2,
+        "entry_range": "$3.00 – $5.50",
         "target": "+65% on premium",
-        "stop": "-35% on premium OR ASML price breaks back below $1,410.83"
+        "stop": "-35% on premium OR QQQ price recovers above $646.00 (above Friday's close)"
       },
-      "invalidation": "If ASML opens below $1,410 (prior session close), the post-earnings recovery has failed — do not enter. Note: each contract requires $4,500–$6,500 in capital; size accordingly.",
-      "confidence": "Medium"
-    },
-    {
-      "rank": 3,
-      "symbol": "AMD",
-      "direction": "BULLISH",
-      "trade_category": "Swing Trade",
-      "type": "Technical Breakout",
-      "context": "AMD closed at $278.26 yesterday — just $1.08 below its 52-week high of $279.34 — with volume running 1.82x the 20-day average, meeting the breakout screen threshold of >1.5x. The stock is 24.74% above its 20MA and 32.15% above its 50MA, confirming persistent upside momentum. In a risk-on tape with SPY and QQQ printing at 52-week highs, a clean break above $279.34 would set a new multi-year high for AMD. Pre-market is marginally softer (-0.35%), so entry requires confirming the $278 level holds on the open and that early volume supports the breakout.",
-      "if_conditions": [
-        "AMD opens at or above $278.00 (prior close / 52-week high zone) and holds that level for 10 minutes without reversal",
-        "Volume in the first 15 minutes of trading is running above the average hourly pace (conviction required for a breakout)",
-        "SPY is not declining more than -0.8% at 9:35am ET"
-      ],
-      "trade": {
-        "structure": "Buy call",
-        "strike": "$279",
-        "expiry": "Apr 24 (Fri)",
-        "dte": 7,
-        "entry_range": "$9.00 – $13.00",
-        "target": "+65% on premium",
-        "stop": "-35% on premium OR AMD price breaks below $275.00"
-      },
-      "invalidation": "If AMD opens below $276.00 or cannot hold $278.00 in the first 15 minutes, the breakout is failing — do not enter. The extension from the 20MA (+24.7%) also means mean-reversion risk is elevated if the tape turns.",
-      "confidence": "Medium"
+      "invalidation": "If QQQ opens above $645 or immediately rallies from the open (Iran fears dissipate on ceasefire news), skip entirely.",
+      "confidence": "Medium-High"
     }
   ],
   "skipped": [
-    "TSLA — earnings April 22 (5 days out); pre-earnings IV will be elevated and the trend is mixed: above 20MA (+6.03%) but below 50MA (-0.39%), no clean directional setup",
-    "META — no specific catalyst today; HV30 of 46.7% makes options expensive without a defined event; above both MAs but at only 62.8% of 52-week range, not near a structural level",
-    "COIN — HV30 61.2% inflates option cost significantly without a specific catalyst; range position only 19.8% of 52-week band (no breakout setup); no event driver",
-    "PLTR — below both 20MA (-1.43%) and 50MA (-0.39%); no catalyst; bearish trend in a risk-on market does not present a clean directional trade",
-    "ORCL — +1.9% pre-market with elevated volume (1.7x) but HV30 of 61.5% makes calls very expensive relative to realized vol; no specific catalyst identified; range position only 26.1% of 52-week band",
-    "MSFT — +1.21% pre-market but no specific catalyst for today; generic momentum trade in absence of an event does not meet quality bar; earnings April 29 create upcoming IV inflation risk"
+    "TSLA — earnings Apr 22 (within 2 days, mandatory skip per rules)",
+    "NFLX — post-earnings guidance miss (guided Q2 and FY26 below consensus, stock -8.9% AH); however, earnings shock already absorbed into Friday's close at $97.99 and post-earnings IV remains elevated vs. HV30=37%, creating IV crush risk on new put positions",
+    "AMD — strong breakout setup (range_position_pct=98.5%, near 52-week high) but Nasdaq futures down on Iran = poor market alignment for bullish tech",
+    "AMZN — near 52-week high (range 95.4%), strong trend, but Nasdaq facing Iran-driven headwinds today",
+    "AVGO — near 52-week high (range 96.2%), strong trend; HV30=44.4% elevated and Nasdaq headwinds disqualify",
+    "CVX — same oil/Iran catalyst as XOM but weaker pre-market move (+1.07% vs +1.75%); XOM is the cleaner expression of the same trade",
+    "MSTR — down 7.01% pre-market but HV30=62.9%; puts too expensive with no specific catalyst beyond crypto risk-off",
+    "MS — strong trend near 52-week high (+0.83% pre-market) but no specific catalyst to justify entry in a risk-off environment"
   ],
   "no_trades": false
 }

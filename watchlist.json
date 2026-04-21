@@ -1,66 +1,64 @@
 {
-  "date": "2026-04-20",
+  "date": "2026-04-21",
   "generated_at_et": "08:40 ET",
-  "market_context": "SPY and QQQ closed Friday at 52-week highs (+6.3% and +8.2% above 20MA respectively). Monday pre-market is materially different from the stale Friday input data: a U.S.-Iran military confrontation (U.S. Navy seized Iranian cargo ship; Iran vowing retaliation) is driving Nasdaq futures down ~1% and crude oil prices sharply higher on Strait of Hormuz supply-disruption fears. Energy sector outperforming; tech/growth facing headwinds. Bias is sector-split: energy bullish on oil surge, broad tech bearish on geopolitical risk-off.",
+  "market_context": "SPY and QQQ both sit at 98.3% of their 52-week ranges and are well above their 20MA and 50MA (SPY +5.9%/+5.1%, QQQ +7.5%/+7.2%). SPY flat pre-market (-0.12%), QQQ slight bid (+0.28%). S&P 500 futures +0.37%, Nasdaq futures +0.43% driven by potential US-Iran peace talks. Broad posture: risk-on, bullish bias for today.",
   "trades": [
     {
       "rank": 1,
-      "symbol": "XOM",
+      "symbol": "AMZN",
       "direction": "BULLISH",
-      "trade_category": "Day Trade",
+      "trade_category": "Swing Trade",
       "type": "Catalyst Play",
-      "context": "U.S.-Iran military confrontation over the weekend (U.S. Navy seized Iranian cargo ship; Iran vowing retaliation) drove crude oil sharply higher on Strait of Hormuz supply-disruption fears. XOM is up ~1.75% pre-market at approximately $146.26. Despite being in a technical downtrend (below its 20MA and 50MA), this is a pure catalyst-driven day trade on energy momentum — geopolitical oil shocks can produce rapid 3-5% intraday moves in integrated majors.",
+      "context": "Amazon announced an expanded strategic collaboration with Anthropic overnight, providing a fresh AI-narrative catalyst. Stock is +10.5% above its 20MA ($223.51) and +15.1% above its 50MA ($214.73), pre-market +0.93% to $249.37. The 52-week high of $258.60 sits 3.7% above the pre-market print and is the near-term technical target. Positive macro backdrop — Iran peace-talk optimism, Nasdaq futures +0.43% — adds sector tailwind.",
       "if_conditions": [
-        "XOM holds above $145.00 at market open (pre-market support level; break below signals oil pop is fading)",
-        "No ceasefire or de-escalation announcement from Iran within the first 15 minutes of trading",
-        "SPY is not declining more than -1.5% at 9:35am ET (broad market crash would overwhelm the energy bid)"
+        "AMZN holds above $247.00 at the open (yesterday's close / primary support level)",
+        "QQQ is not declining more than -0.8% at 9:35am ET",
+        "No secondary news contradicting or reversing the Anthropic collaboration announcement before entry"
       ],
       "trade": {
         "structure": "Buy call",
-        "strike": "$146",
-        "expiry": "Apr 22 (Wed)",
-        "dte": 2,
-        "entry_range": "$1.80 – $2.50",
+        "strike": "$250",
+        "expiry": "Apr 24 (Fri)",
+        "dte": 3,
+        "entry_range": "$3.50 – $5.50",
         "target": "+65% on premium",
-        "stop": "-35% on premium OR XOM price drops below $144.50"
+        "stop": "-35% on premium OR price breaks $247.00"
       },
-      "invalidation": "If XOM opens below $144.50 or immediately reverses lower at the open, skip entirely — the oil pop is fading and the catalyst is not holding.",
+      "invalidation": "If AMZN opens below $246.00 and does not recover above $247.00 within 15 minutes, skip entirely.",
       "confidence": "High"
     },
     {
       "rank": 2,
-      "symbol": "QQQ",
-      "direction": "BEARISH",
-      "trade_category": "Day Trade",
-      "type": "Macro/Catalyst Play",
-      "context": "QQQ closed Friday at a 52-week high ($646.89, range_position_pct=100%), leaving it maximally exposed to a pullback. Monday pre-market Nasdaq futures are explicitly lower on Iran-driven geopolitical shock. Buying puts at an all-time high with a confirmed negative catalyst and cheap implied volatility (HV30=22%) is a high-quality asymmetric setup — maximum technical vulnerability plus a specific negative event.",
+      "symbol": "GOOGL",
+      "direction": "BULLISH",
+      "trade_category": "Swing Trade",
+      "type": "Technical Breakout",
+      "context": "GOOGL closed at $338.71 and is pre-market +0.65% to $340.92, sitting at 95.1% of its 52-week range ($145.60–$348.75) — just 2.3% below a potential all-time breakout level. The stock is +9.99% above both its 20MA ($307.96) and 50MA ($307.93), confirming strong trend alignment. AI sector strength, Iran peace-talk optimism, and Nasdaq futures +0.43% all support a push toward the $348.75 52-week high.",
       "if_conditions": [
-        "QQQ opens below $643.00 (below Friday's close of $646.89, confirming the Iran-driven gap-down is holding at open)",
-        "SPY is declining at least -0.5% from its own open at 9:35am ET (confirming broad risk-off, not isolated sector rotation)",
-        "No sudden Iran de-escalation or ceasefire headline within the first 15 minutes of trading"
+        "GOOGL holds above $337.00 at the open (1% pullback tolerance anchored to pre-market level / intraday support)",
+        "QQQ is not declining more than -0.8% at 9:35am ET",
+        "GOOGL trades above $341.00 within the first 30 minutes of session open, confirming breakout continuation"
       ],
       "trade": {
-        "structure": "Buy put",
-        "strike": "$640",
-        "expiry": "Apr 22 (Wed)",
-        "dte": 2,
-        "entry_range": "$3.00 – $5.50",
+        "structure": "Buy call",
+        "strike": "$345",
+        "expiry": "Apr 24 (Fri)",
+        "dte": 3,
+        "entry_range": "$2.50 – $4.50",
         "target": "+65% on premium",
-        "stop": "-35% on premium OR QQQ price recovers above $646.00 (above Friday's close)"
+        "stop": "-35% on premium OR price breaks $337.00"
       },
-      "invalidation": "If QQQ opens above $645 or immediately rallies from the open (Iran fears dissipate on ceasefire news), skip entirely.",
+      "invalidation": "If GOOGL fails to trade above $341.00 within the first 30 minutes of the session, skip and wait for a cleaner entry.",
       "confidence": "Medium-High"
     }
   ],
   "skipped": [
-    "TSLA — earnings Apr 22 (within 2 days, mandatory skip per rules)",
-    "NFLX — post-earnings guidance miss (guided Q2 and FY26 below consensus, stock -8.9% AH); however, earnings shock already absorbed into Friday's close at $97.99 and post-earnings IV remains elevated vs. HV30=37%, creating IV crush risk on new put positions",
-    "AMD — strong breakout setup (range_position_pct=98.5%, near 52-week high) but Nasdaq futures down on Iran = poor market alignment for bullish tech",
-    "AMZN — near 52-week high (range 95.4%), strong trend, but Nasdaq facing Iran-driven headwinds today",
-    "AVGO — near 52-week high (range 96.2%), strong trend; HV30=44.4% elevated and Nasdaq headwinds disqualify",
-    "CVX — same oil/Iran catalyst as XOM but weaker pre-market move (+1.07% vs +1.75%); XOM is the cleaner expression of the same trade",
-    "MSTR — down 7.01% pre-market but HV30=62.9%; puts too expensive with no specific catalyst beyond crypto risk-off",
-    "MS — strong trend near 52-week high (+0.83% pre-market) but no specific catalyst to justify entry in a risk-off environment"
+    "TSLA — earnings Apr 22 (within 2 days), mandatory skip per Rule #2",
+    "NFLX — reported AH Apr 20: EPS beat but Q2 and FY26 guidance below consensus, stock -8.9% AH; post-earnings gap-down creates elevated IV risk, move already occurred, and bearish direction conflicts with today's risk-on market bias",
+    "AAPL — Tim Cook CEO departure announced (Ternus to succeed); stock off pre-market but catalyst direction is ambiguous (leadership transitions cut both ways) and upcoming earnings Apr 30 limit the play window",
+    "AMD — strong momentum (+19.6% above MA20, pre-market +2.01%, range 94.2%) but HV30 50.1% makes options expensive relative to expected move and no stock-specific catalyst",
+    "AVGO — approaching 52-week high (range 94.3%, pre-market +1.87%) but HV30 45.0% makes options expensive with no stock-specific catalyst",
+    "NVDA — strong trend and approaching 52-week high but no specific catalyst today; AMZN and GOOGL are cleaner setups"
   ],
   "no_trades": false
 }
